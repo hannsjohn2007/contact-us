@@ -1,50 +1,50 @@
 import resource from 'resource-router-middleware';
-import facets from '../models/facets';
+import addresses from '../models/addresses';
 
 export default ({ config, db }) => resource({
 
 	/** Property name to store preloaded entity on `request`. */
-	id : 'facet',
+	id : 'address',
 
 	/** For requests with an `id`, you can auto-load the entity.
 	 *  Errors terminate the request, success sets `req[id] = data`.
 	 */
 	load(req, id, callback) {
-		let facet = facets.find( facet => facet.id===id ),
-			err = facet ? null : 'Not found';
-		callback(err, facet);
+		let address = addresses.find( address => address.id===id ),
+			err = address ? null : 'Not found';
+		callback(err, address);
 	},
 
 	/** GET / - List all entities */
 	index({ params }, res) {
-		res.json(facets);
+		res.json(addresses);
 	},
 
 	/** POST / - Create a new entity */
 	create({ body }, res) {
-		body.id = facets.length.toString(36);
-		facets.push(body);
+		body.id = addresses.length.toString(36);
+		addresses.push(body);
 		res.json(body);
 	},
 
 	/** GET /:id - Return a given entity */
-	read({ facet }, res) {
-		res.json(facet);
+	read({ address }, res) {
+		res.json(address);
 	},
 
 	/** PUT /:id - Update a given entity */
-	update({ facet, body }, res) {
+	update({ address, body }, res) {
 		for (let key in body) {
 			if (key!=='id') {
-				facet[key] = body[key];
+				address[key] = body[key];
 			}
 		}
 		res.sendStatus(204);
 	},
 
 	/** DELETE /:id - Delete a given entity */
-	delete({ facet }, res) {
-		facets.splice(facets.indexOf(facet), 1);
+	delete({ address }, res) {
+		addresses.splice(addresses.indexOf(address), 1);
 		res.sendStatus(204);
 	}
 });

@@ -14,6 +14,9 @@ app.server = http.createServer(app);
 // logger
 app.use(morgan('dev'));
 
+app.use(express.static('public'));
+
+
 // 3rd party middleware
 app.use(cors({
 	exposedHeaders: config.corsHeaders
@@ -26,6 +29,9 @@ app.use(bodyParser.json({
 // connect to db
 initializeDb( db => {
 
+	app.get('/', (req, res)=> {
+		res.sendFile(__dirname + '/index.html');
+	});
 	// internal middleware
 	app.use(middleware({ config, db }));
 

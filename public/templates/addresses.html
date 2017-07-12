@@ -1,0 +1,23 @@
+<div class="col-md-6" ng-conroller="AddressCtr">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <input type="text" class="form-control" id="filterByLocation" placeholder="Filter by office location">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <input type="text" class="form-control" id="search" placeholder="Search">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" >
+            <ul>
+                <li ng-repeat="address in addresses">
+                    {{ address.branchName }}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
